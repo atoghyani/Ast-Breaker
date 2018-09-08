@@ -14,7 +14,8 @@ public class SceneLoader : MonoBehaviour {
 
     public void LoadFirstScene()
     {
-       //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        FindObjectOfType<GameStatus>().ResetGame();
         SceneManager.LoadScene(0);
     }
 
