@@ -8,6 +8,7 @@ public class GameStatus : MonoBehaviour {
     [SerializeField]int pointsPerAsteroid=83;
     [SerializeField] int currentScore=0;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] bool isAutoPlayEnabled;
 
 
     private void Awake()
@@ -45,6 +46,11 @@ public class GameStatus : MonoBehaviour {
     public void ResetGame()
     {
         Destroy(gameObject);
+    }
+
+    public bool IsAutoPlayEnabled()
+    {
+        return isAutoPlayEnabled;
     }
 
 }

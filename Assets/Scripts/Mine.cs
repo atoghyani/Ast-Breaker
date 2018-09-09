@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Mine : MonoBehaviour {
@@ -9,6 +7,9 @@ public class Mine : MonoBehaviour {
     [SerializeField] Ship ship1;
     [SerializeField] float direction;
     [SerializeField] float force;
+    [SerializeField] float randomFactor = 0.2f;
+
+    Rigidbody2D rigidBody;
 
 
     bool hasStarted = false;
@@ -17,6 +18,7 @@ public class Mine : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
         shipMineVector = transform.position - ship1.transform.position;
 	}
 	
@@ -38,7 +40,7 @@ public class Mine : MonoBehaviour {
         {
             GetComponent<AudioSource>().Play();
 
-            GetComponent<Rigidbody2D>().velocity = new Vector2(direction, force);
+            rigidBody.velocity = new Vector2(direction, force);
             hasStarted = true;
         }
     }
@@ -49,5 +51,13 @@ public class Mine : MonoBehaviour {
         transform.position = shipPos + shipMineVector;
     }
 
-   
+    private void nCollisionEnter2D(Collision2D collision)
+    {
+        Vector2 velocityTweak = new Vector2
+            (Random.Range(0f,randomFactor),
+            Random.Range(0f, randomFactor));
+        rigidBody.velocity += velocityTweak;
+    }
+
+
 }

@@ -17,9 +17,22 @@ public class Ship : MonoBehaviour {
 	void Update () {
 
         Vector2 shipPos = new Vector2(transform.position.x, transform.position.y);
-        shipPos.x = Mathf.Clamp( Input.mousePosition.x / Screen.width * width, minX, maxX);
+        shipPos.x = Mathf.Clamp( GetXPos(), minX, maxX);
         transform.position = shipPos;
 	}
+
+
+    private float GetXPos()
+    {
+        if(FindObjectOfType<GameStatus>().IsAutoPlayEnabled())
+        {
+            return FindObjectOfType<Mine>().transform.position.x;
+        }
+        else
+        {
+            return Input.mousePosition.x / Screen.width * width;
+        }
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
